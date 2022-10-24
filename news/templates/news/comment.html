@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}
+Комментарии
+{% endblock %}
+
+{% block content %}
+{% with comments.count as comments_count %}
+<h2>Оставьте комментарий</h2>
+{% endwith %}
+<div>
+    {%if csubmit %}
+    <h2>Ваш комментарий успешно добавлен</h2>
+    {%else%}
+    <form action="{% url 'comment' post.id %}", method="post">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary btn-block">Оставить комментарий</button>
+    </form>
+    {%endif%}
+
+</div>
+{% endblock %}
+</div>

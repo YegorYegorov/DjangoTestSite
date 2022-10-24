@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ category.title }}
+{% endblock %}
+
+{% block content %}
+<div class="col-md-10">
+    {% for item in news %}
+    {% if item.is_published %}
+    <div class="card mb-3">
+        <h5 class="card-header">Категория:
+            {% if item.category.id %}
+            <a> {{ item.category.title }}</a>
+            {% endif %}
+        </h5>
+        <div class="card-body">
+            <div class="media">
+                {% if item.photo %}
+                <p><img class="mb-3 mr-5" src="{{item.photo.url}}" alt="" width="350"></p>
+                {% else%}
+
+                {% endif %}
+                <div class="media-body">
+                    <h5 class="card-title">{{ item.title }}</h5>
+                    <p class="card-text">{{ item.content|linebreaks|truncatewords:50 }}</p>
+                    <a href="{{ item.get_absolute_url }}" class="btn btn-primary">Read more...</a>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-muted">
+            Опубликовано: {{ item.created_at|timesince }}
+        </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+</div>
+{% endblock %}
+
+
